@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Style x:Key="TitleMainePage" TargetType="Label">
+        <Setter Property="FontSize"
+                    Value="35">
+        </Setter>
+        <Setter Property="BackgroundColor"
+                    Value="{StaticResource MainPageTitle}">
+        </Setter>
+        <Setter Property="VerticalOptions"
+                    Value="Fill">
+        </Setter>
+        <Setter Property="HorizontalOptions"
+                    Value="Center">
+        </Setter>
+    </Style>
+    <Style TargetType="Label">
+        <Setter Property="FontSize"
+                    Value="30">
+        </Setter>
+        <Setter Property="VerticalOptions"
+                    Value="Fill">
+        </Setter>
+        <Setter Property="HorizontalOptions"
+                    Value="Start">
+        </Setter>
+    </Style>
+</ResourceDictionary> 
