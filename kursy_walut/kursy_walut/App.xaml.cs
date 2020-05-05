@@ -10,7 +10,7 @@ namespace kursy_walut
         {
             InitializeComponent();
 
-            MainPage = new HomePage();
+            MainPage = new Views.HomePage();
         }
 
         protected override void OnStart()

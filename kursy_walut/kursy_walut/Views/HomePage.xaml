@@ -12,14 +12,17 @@
                Style="{StaticResource TitleMainePage}"/>
         <StackLayout Orientation="Horizontal" Spacing="15">
             <Label Text="EUR/PLN"/>
+            <Button Text="more" HorizontalOptions="CenterAndExpand"/>
             <Label Text="4,55" HorizontalOptions="EndAndExpand"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal" Spacing="15">
             <Label Text="USD/PLN"/>
+            <Button Text="more" HorizontalOptions="CenterAndExpand"/>
             <Label Text="4,55" HorizontalOptions="EndAndExpand"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal" Spacing="15">
             <Label Text="JPN/PLN"/>
+            <Button Text="more" HorizontalOptions="CenterAndExpand"/>
             <Label Text="4,55" HorizontalOptions="EndAndExpand"/>
         </StackLayout> 
     </StackLayout>

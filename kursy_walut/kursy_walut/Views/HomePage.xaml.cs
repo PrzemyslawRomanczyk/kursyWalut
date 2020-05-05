@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace kursy_walut
+namespace kursy_walut.Views
 {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
@@ -15,6 +15,9 @@ namespace kursy_walut
     {
         public HomePage()
         {
+            InitializeComponent();
+
+            BindingContext = new ViewModels.HomeViewModel(Navigation);
         }
     }
 }
