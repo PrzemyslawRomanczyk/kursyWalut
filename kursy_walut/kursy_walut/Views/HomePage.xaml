@@ -3,31 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:kursy_walut.MarkupExtensions"
+             xmlns:local="clr-namespace:kursy_walut.MarkupExtensions" 
+             xmlns:Renders="clr-namespace:kursy_walut.Renders"
              mc:Ignorable="d"
              x:Class="kursy_walut.Views.HomePage">
-    <ScrollView>
-        <StackLayout Margin="20, 35, 20 ,25" Spacing="20">
-            <!-- Place new controls here -->
+    <Renders:GradientLayout
+        ColorsList="#a7fea6,#c3eefc,#5eaef1"
+        Mode="ToBottomRight">
+        <ScrollView>
+            <StackLayout Margin="20, 35, 20 ,25" Spacing="10">
 
-                <Image Source="{local:EmbeddedImage kursy_walut.Images.logo.png}" />
+                <Image Source="{local:EmbeddedImage kursy_walut.Images.logo.png}" WidthRequest="300" HeightRequest="200"/>
 
-            <StackLayout Orientation="Horizontal" Spacing="15">
-                <Label Text="EUR/PLN"/>
-                <Button Text="more" HorizontalOptions="CenterAndExpand"/>
-                <Label Text="4,55" HorizontalOptions="EndAndExpand"/>
+                <StackLayout Orientation="Horizontal" Spacing="15">
+                    <Label Text="EUR/PLN"/>
+                    <Button Text="more" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="4,55" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="15">
+                    <Label Text="USD/PLN"/>
+                    <Button Text="more" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="4,55" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="15">
+                    <Label Text="JPN/PLN"/>
+                    <Button Text="more" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="4,55" HorizontalOptions="EndAndExpand"/>
+                </StackLayout> 
             </StackLayout>
-            <StackLayout Orientation="Horizontal" Spacing="15">
-                <Label Text="USD/PLN"/>
-                <Button Text="more" HorizontalOptions="CenterAndExpand"/>
-                <Label Text="4,55" HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" Spacing="15">
-                <Label Text="JPN/PLN"/>
-                <Button Text="more" HorizontalOptions="CenterAndExpand"/>
-                <Label Text="4,55" HorizontalOptions="EndAndExpand"/>
-            </StackLayout> 
-        </StackLayout>
-    </ScrollView>
+        </ScrollView>
+    </Renders:GradientLayout>
 
 </ContentPage>
