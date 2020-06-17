@@ -1,5 +1,7 @@
-﻿using System;
+﻿using kursy_walut.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -13,11 +15,26 @@ namespace kursy_walut.Views
     [DesignTimeVisible(false)]
     public partial class HomePage : ContentPage
     {
+        private ObservableCollection<Waluty> _Waluty;
         public HomePage()
         {
             InitializeComponent();
 
-            BindingContext = new ViewModels.HomeViewModel(Navigation);
+            _Waluty = new ObservableCollection<Waluty> { 
+                new Waluty {NazwaWaluty = "Euro", KursWaluty=4.55},
+                new Waluty {NazwaWaluty = "Dolar", KursWaluty=4.12},
+                new Waluty {NazwaWaluty = "Jen", KursWaluty=0.01}
+            };
+            listView.ItemsSource = _Waluty;
+
+            //BindingContext = new ViewModels.HomeViewModel(Navigation);
+        }
+
+        private void DeleteElement(object sender, EventArgs e)
+        {
+            var Element = (sender as MenuItem).CommandParameter as Waluty;
+            _Waluty.Remove(Element);
+
         }
     }
 }
