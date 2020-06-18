@@ -34,7 +34,12 @@
                          BackgroundColor="Snow"
                          AbsoluteLayout.LayoutFlags="All">
                     </BoxView>
-                    <ListView x:Name="listView" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.1,0.1,0.9,0.9">
+                    <ListView 
+                        x:Name="listView" 
+                        AbsoluteLayout.LayoutFlags="All" 
+                        AbsoluteLayout.LayoutBounds="0.1,0.1,0.9,0.9"
+                        ItemSelected="HandleSelection"
+                        IsPullToRefreshEnabled="True" Refreshing="RefreshList">
                     <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -42,7 +47,6 @@
                                         Orientation="Horizontal" 
                                         Spacing="15">
                                         <Label Text="{Binding NazwaWaluty}"/>
-                                        <Button Text="more" HorizontalOptions="CenterAndExpand"/>
                                         <Label Text="{Binding KursWaluty}" HorizontalOptions="EndAndExpand"/>
                                     </StackLayout>
                                     <ViewCell.ContextActions>

@@ -20,14 +20,20 @@ namespace kursy_walut.Views
         {
             InitializeComponent();
 
-            _Waluty = new ObservableCollection<Waluty> { 
+            _Waluty = GetWaluty();
+            listView.ItemsSource = _Waluty;
+
+            //BindingContext = new ViewModels.HomeViewModel(Navigation);
+        }
+
+        ObservableCollection<Waluty> GetWaluty()
+        {
+            _Waluty = new ObservableCollection<Waluty> {
                 new Waluty {NazwaWaluty = "Euro", KursWaluty=4.55},
                 new Waluty {NazwaWaluty = "Dolar", KursWaluty=4.12},
                 new Waluty {NazwaWaluty = "Jen", KursWaluty=0.01}
             };
-            listView.ItemsSource = _Waluty;
-
-            //BindingContext = new ViewModels.HomeViewModel(Navigation);
+            return _Waluty;
         }
 
         private void DeleteElement(object sender, EventArgs e)
@@ -35,6 +41,18 @@ namespace kursy_walut.Views
             var Element = (sender as MenuItem).CommandParameter as Waluty;
             _Waluty.Remove(Element);
 
+        }
+
+        private void HandleSelection(object sender, SelectedItemChangedEventArgs e)
+        {
+            var Kurs = e.SelectedItem as Waluty;
+            DisplayAlert("Selected", Kurs.NazwaWaluty, "OK");
+        }
+
+        private void RefreshList(object sender, EventArgs e)
+        {
+            listView.ItemsSource = GetWaluty();
+            listView.EndRefresh();
         }
     }
 }
