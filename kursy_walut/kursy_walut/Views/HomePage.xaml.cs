@@ -43,10 +43,10 @@ namespace kursy_walut.Views
 
         }
 
-        private void HandleSelection(object sender, SelectedItemChangedEventArgs e)
+        async private void HandleSelection(object sender, SelectedItemChangedEventArgs e)
         {
             var Kurs = e.SelectedItem as Waluty;
-            DisplayAlert("Selected", Kurs.NazwaWaluty, "OK");
+            await Navigation.PushAsync(new Views.DetailPage());
         }
 
         private void RefreshList(object sender, EventArgs e)

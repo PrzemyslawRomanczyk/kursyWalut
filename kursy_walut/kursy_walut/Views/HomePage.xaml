@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:kursy_walut.MarkupExtensions" 
              xmlns:Renders="clr-namespace:kursy_walut.Renders"
              mc:Ignorable="d"
-             x:Class="kursy_walut.Views.HomePage">
+             x:Class="kursy_walut.Views.HomePage"
+             NavigationPage.HasNavigationBar="False">
     <Renders:GradientLayout
         ColorsList="#a7fea6,#c3eefc,#5eaef1"
         Mode="ToBottomRight">

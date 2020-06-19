@@ -4,12 +4,17 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:Renders="clr-namespace:kursy_walut.Renders"
              x:Class="kursy_walut.Views.DetailPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+        <Renders:GradientLayout
+            ColorsList="#a7fea6,#c3eefc,#5eaef1"
+            Mode="ToBottomRight">
+            <StackLayout>
+                <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+            </StackLayout>
+        </Renders:GradientLayout>
     </ContentPage.Content>
 </ContentPage>
