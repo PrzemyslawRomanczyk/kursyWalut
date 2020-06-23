@@ -1,9 +1,13 @@
 ﻿using kursy_walut.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -15,7 +19,28 @@ namespace kursy_walut.Views
     [DesignTimeVisible(false)]
     public partial class HomePage : ContentPage
     {
+        private const string Url = "https://api.exchangeratesapi.io";
+        private HttpClient _client = new HttpClient();
+
         private ObservableCollection<Waluty> _Waluty;
+        private ObservableCollection<Rates> _Rates;
+        private Double DownloadedRates; 
+
+        public class Rates
+        {
+            public Dictionary<string, double> RatesDict { get; set; }
+            public string Currency { get; set; }
+            public string Date { get; set; }
+        }
+        protected override async void OnAppearing()
+        {
+            var content = await _client.GetStringAsync(Url + "/latest??symbols=PLN");
+            var ParsedContent = JsonConvert.DeserializeObject<Rates>(content);
+            DownloadedRates = ParsedContent.RatesDict["PLN"];
+            _Rates = new ObservableCollection<Rates>(ParsedContent);
+            base.OnAppearing();
+        }
+
         public HomePage()
         {
             InitializeComponent();
@@ -28,11 +53,9 @@ namespace kursy_walut.Views
 
         ObservableCollection<Waluty> GetWaluty()
         {
-            _Waluty = new ObservableCollection<Waluty> {
-                new Waluty {NazwaWaluty = "Euro", KursWaluty=4.55},
-                new Waluty {NazwaWaluty = "Dolar", KursWaluty=4.12},
-                new Waluty {NazwaWaluty = "Jen", KursWaluty=0.01}
-            };
+            _Waluty = new ObservableCollection<Waluty>
+            { new Waluty { NazwaWaluty = "Euro", KursWaluty = /*DownloadedRates.RatesDict["PLN"]*/ 1.23 } };
+
             return _Waluty;
         }
 
