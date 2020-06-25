@@ -1,5 +1,6 @@
 ﻿using kursy_walut.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,20 +25,37 @@ namespace kursy_walut.Views
 
         private ObservableCollection<Waluty> _Waluty;
         private ObservableCollection<Rates> _Rates;
-        private Double DownloadedRates; 
+        private Double DownloadedRates;
+        private List<Ratio> ListRatio;
 
         public class Rates
         {
-            public Dictionary<string, double> RatesDict { get; set; }
+            public  Ratio RatesObj { get; set; }
             public string Currency { get; set; }
-            public string Date { get; set; }
+            public DateTime Date { get; set; }
+        }
+        public class Ratio
+        {
+            public string Base { get; set; }
+            public double CurrentRatio { get; set; }
         }
         protected override async void OnAppearing()
         {
-            var content = await _client.GetStringAsync(Url + "/latest??symbols=PLN");
-            var ParsedContent = JsonConvert.DeserializeObject<Rates>(content);
-            DownloadedRates = ParsedContent.RatesDict["PLN"];
-            _Rates = new ObservableCollection<Rates>(ParsedContent);
+            var content = await _client.GetStringAsync(Url + "/latest?symbols=PLN");
+            //System.Diagnostics.Debug.WriteLine("Content :" + content);
+            var content2 = content.Remove(0,9);
+            //System.Diagnostics.Debug.WriteLine("Content :" + content2);
+            var content3 = content2.Remove(14);
+            //System.Diagnostics.Debug.WriteLine("Content :" + content3);
+            //var ParsedContent = JsonConvert.DeserializeObject<Ratio>(content3);
+            //System.Diagnostics.Debug.WriteLine("Currency :" + ParsedContent);
+            //JObject Jobj = JObject.Parse(content);
+            //string Curency = (string)Jobj.SelectToken("base");
+            //System.Diagnostics.Debug.WriteLine("Currency :" + Curency);
+            //string Rates2 = (string)Jobj.SelectToken("rates");
+            JObject RatesObj = JObject.Parse(content3);
+            double CurrenyRate = (double)RatesObj.SelectToken("PLN");
+            System.Diagnostics.Debug.WriteLine("Currency :" + CurrenyRate);
             base.OnAppearing();
         }
 
@@ -48,14 +66,22 @@ namespace kursy_walut.Views
             _Waluty = GetWaluty();
             listView.ItemsSource = _Waluty;
 
-            //BindingContext = new ViewModels.HomeViewModel(Navigation);
         }
 
         ObservableCollection<Waluty> GetWaluty()
         {
-            _Waluty = new ObservableCollection<Waluty>
-            { new Waluty { NazwaWaluty = "Euro", KursWaluty = /*DownloadedRates.RatesDict["PLN"]*/ 1.23 } };
-
+            if (DownloadedRates == 0)
+            {
+                _Waluty = new ObservableCollection<Waluty>
+                    { new Waluty { NazwaWaluty = "Euro", KursWaluty = /*DownloadedRates.RatesDict["PLN"]*/ 2.0} };
+            }
+            else
+            {
+                _Waluty = new ObservableCollection<Waluty> {
+                new Waluty {NazwaWaluty = "Euro", KursWaluty=4.55},
+                new Waluty {NazwaWaluty = "Dolar", KursWaluty=4.12},
+                new Waluty {NazwaWaluty = "Jen", KursWaluty=0.01}};
+            }
             return _Waluty;
         }
 
