@@ -9,6 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -23,72 +24,41 @@ namespace kursy_walut.Views
         private const string Url = "https://api.exchangeratesapi.io";
         private HttpClient _client = new HttpClient();
 
-        private ObservableCollection<Waluty> _Waluty;
-        private ObservableCollection<Rates> _Rates;
-        private Double DownloadedRates;
-        private List<Ratio> ListRatio;
+        private ObservableCollection<Waluty> _Currency;
+        private String _ApiRespons;
+        private ObservableCollection<Waluty> _CurrencyNames;
 
-        public class Rates
+        async Task getCurrencyChangeRatio(string Currency, ObservableCollection<Waluty> Coll)
         {
-            public  Ratio RatesObj { get; set; }
-            public string Currency { get; set; }
-            public DateTime Date { get; set; }
+            await RequestApi(Currency);
+            System.Diagnostics.Debug.WriteLine("Inside"+ _ApiRespons);
+            JObject RatesObj = JObject.Parse(_ApiRespons);
+            double CurrenyRate = (double)RatesObj.SelectToken("rates.PLN");
+            System.Diagnostics.Debug.WriteLine("Rates " + CurrenyRate);
+            Coll.Add(new Waluty { NazwaWaluty = Currency, KursWaluty = CurrenyRate } );
         }
-        public class Ratio
+        async Task RequestApi(string CurrencyName)
         {
-            public string Base { get; set; }
-            public double CurrentRatio { get; set; }
+            _ApiRespons = await _client.GetStringAsync(Url + "/latest?symbols=PLN&base=" + CurrencyName);
         }
+
         protected override async void OnAppearing()
         {
-            var content = await _client.GetStringAsync(Url + "/latest?symbols=PLN");
-            //System.Diagnostics.Debug.WriteLine("Content :" + content);
-            var content2 = content.Remove(0,9);
-            //System.Diagnostics.Debug.WriteLine("Content :" + content2);
-            var content3 = content2.Remove(14);
-            //System.Diagnostics.Debug.WriteLine("Content :" + content3);
-            //var ParsedContent = JsonConvert.DeserializeObject<Ratio>(content3);
-            //System.Diagnostics.Debug.WriteLine("Currency :" + ParsedContent);
-            //JObject Jobj = JObject.Parse(content);
-            //string Curency = (string)Jobj.SelectToken("base");
-            //System.Diagnostics.Debug.WriteLine("Currency :" + Curency);
-            //string Rates2 = (string)Jobj.SelectToken("rates");
-            JObject RatesObj = JObject.Parse(content3);
-            double CurrenyRate = (double)RatesObj.SelectToken("PLN");
-            System.Diagnostics.Debug.WriteLine("Currency :" + CurrenyRate);
+            System.Diagnostics.Debug.WriteLine("_Currency1 " + _Currency);
             base.OnAppearing();
         }
 
         public HomePage()
         {
             InitializeComponent();
+            listView.ItemsSource = _Currency;
 
-            _Waluty = GetWaluty();
-            listView.ItemsSource = _Waluty;
-
-        }
-
-        ObservableCollection<Waluty> GetWaluty()
-        {
-            if (DownloadedRates == 0)
-            {
-                _Waluty = new ObservableCollection<Waluty>
-                    { new Waluty { NazwaWaluty = "Euro", KursWaluty = /*DownloadedRates.RatesDict["PLN"]*/ 2.0} };
-            }
-            else
-            {
-                _Waluty = new ObservableCollection<Waluty> {
-                new Waluty {NazwaWaluty = "Euro", KursWaluty=4.55},
-                new Waluty {NazwaWaluty = "Dolar", KursWaluty=4.12},
-                new Waluty {NazwaWaluty = "Jen", KursWaluty=0.01}};
-            }
-            return _Waluty;
         }
 
         private void DeleteElement(object sender, EventArgs e)
         {
             var Element = (sender as MenuItem).CommandParameter as Waluty;
-            _Waluty.Remove(Element);
+            _Currency.Remove(Element);
 
         }
 
@@ -98,9 +68,10 @@ namespace kursy_walut.Views
             await Navigation.PushAsync(new Views.DetailPage());
         }
 
-        private void RefreshList(object sender, EventArgs e)
+        private  void RefreshList(object sender, EventArgs e)
         {
-            listView.ItemsSource = GetWaluty();
+            //await getCurrencyChangeRatio("EUR");
+            listView.ItemsSource = _Currency;
             listView.EndRefresh();
         }
     }
