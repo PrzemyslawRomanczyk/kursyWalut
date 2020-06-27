@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:Renders="clr-namespace:kursy_walut.Renders"
+             x:Class="kursy_walut.Views.Settings">
+    <ContentPage.Content>
+        <Renders:GradientLayout
+            ColorsList="#a7fea6,#c3eefc,#5eaef1"
+            Mode="ToBottomRight">
+            <StackLayout>
+                <Label>Add currency to list</Label>
+                <Picker x:Name="CurrencyPicker"
+                        Title="Choose Currency Acronym" 
+                        SelectedIndexChanged="Picker_SelectedIndexChanged"
+                        >
+                </Picker>
+            </StackLayout>
+        </Renders:GradientLayout>
+    </ContentPage.Content>
+</ContentPage>

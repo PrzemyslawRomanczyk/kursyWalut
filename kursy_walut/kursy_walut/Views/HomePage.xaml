@@ -61,6 +61,12 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    <ImageButton 
+                        Source="{local:EmbeddedImage kursy_walut.Images.settingsIcon.png}"
+                        Clicked="GoToSettings"
+                        AbsoluteLayout.LayoutFlags="PositionProportional"
+                        AbsoluteLayout.LayoutBounds="0.95,0.95,30,30">
+                    </ImageButton>
                 </AbsoluteLayout>
             </StackLayout>
         </ScrollView>
