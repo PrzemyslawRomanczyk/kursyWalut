@@ -28,20 +28,17 @@ namespace kursy_walut.Views
 
         private ObservableCollection<CurrencyC> _Currency;
         private String _ApiRespons;
-        private IList<string> _CurrencyNames;
         private SQLiteAsyncConnection _Connection;
 
         async Task getCurrencyChangeRatio(string Currency)
         {
+            //System.Diagnostics.Debug.WriteLine("inside3");
             await RequestApi(Currency);
-            System.Diagnostics.Debug.WriteLine("Inside" + _ApiRespons);
             JObject RatesObj = JObject.Parse(_ApiRespons);
-            double CurrentRate = (double)RatesObj.SelectToken("rates.PLN");
-            System.Diagnostics.Debug.WriteLine("Rates " + CurrentRate);
+            double CurrentRate = Math.Round((double)RatesObj.SelectToken("rates.PLN"), 2);
             if (_Currency.Contains(_Currency.SingleOrDefault(x => x.CurrencyName == Currency)))
-            { 
+            {
                 _Currency.SingleOrDefault(x => x.CurrencyName == Currency).CurrencyRatio = CurrentRate;
-                //await _Connection.UpdateAllAsync(_Currency.SingleOrDefault(x => x.CurrencyName == Currency).CurrencyRatio = CurrentRate);
             }
             else
             {
@@ -60,16 +57,11 @@ namespace kursy_walut.Views
             var CurrentCurrencyDB = await _Connection.Table<CurrencyC>().ToListAsync();
             _Currency = new ObservableCollection<CurrencyC>(CurrentCurrencyDB); 
 
-            System.Diagnostics.Debug.WriteLine("_Currency1 " + _Currency);
-
-            if (Application.Current.Properties.ContainsKey("OptionsCurrency"))
-                _CurrencyNames.Add(Application.Current.Properties["OptionsCurrency"].ToString());
-            else
-                _CurrencyNames = new List<string>{ "USD", "EUR" };
-
-            foreach (var Name in _CurrencyNames)
-                await getCurrencyChangeRatio(Name);
-
+            if (CurrentCurrencyDB.Any())
+            {
+                foreach (var Name in _Currency)
+                    await getCurrencyChangeRatio(Name.CurrencyName);
+            }
             listView.ItemsSource = _Currency;
             base.OnAppearing();
         }
@@ -85,6 +77,7 @@ namespace kursy_walut.Views
         {
             var Element = (sender as MenuItem).CommandParameter as CurrencyC;
             _Currency.Remove(Element);
+            _Connection.DeleteAsync(Element);
 
         }
 
@@ -94,15 +87,16 @@ namespace kursy_walut.Views
             await Navigation.PushAsync(new Views.DetailPage());
         }
 
-        private  void RefreshList(object sender, EventArgs e)
+        async private  void RefreshList(object sender, EventArgs e)
         {
-            //await getCurrencyChangeRatio("EUR");
+            foreach (var Name in _Currency)
+                    await getCurrencyChangeRatio(Name.CurrencyName);
             listView.ItemsSource = _Currency;
             listView.EndRefresh();
         }
         async private void GoToSettings(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Views.Settings());
+            await Navigation.PushAsync(new Views.Settings(_Connection));
         }
     }
 }

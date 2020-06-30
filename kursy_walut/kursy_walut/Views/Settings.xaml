@@ -10,14 +10,28 @@
         <Renders:GradientLayout
             ColorsList="#a7fea6,#c3eefc,#5eaef1"
             Mode="ToBottomRight">
-            <StackLayout>
-                <Label>Add currency to list</Label>
-                <Picker x:Name="CurrencyPicker"
-                        Title="Choose Currency Acronym" 
-                        SelectedIndexChanged="Picker_SelectedIndexChanged"
-                        >
-                </Picker>
-            </StackLayout>
+            <AbsoluteLayout
+                Margin="10,20,10,10" >
+                <BoxView WidthRequest="300"
+                         HeightRequest="150"
+                         CornerRadius="20"
+                         AbsoluteLayout.LayoutBounds="0.1,0.1,1,1"
+                         BackgroundColor="Snow"
+                         AbsoluteLayout.LayoutFlags="All">
+                </BoxView>
+                <StackLayout
+                    AbsoluteLayout.LayoutFlags="All" 
+                    AbsoluteLayout.LayoutBounds="0.1,0.1,0.9,0.9">
+                        <Label
+                            HorizontalOptions="Center">
+                                Add new currency to list</Label>
+                        <Picker x:Name="CurrencyPicker"
+                                Title="Choose Currency Acronym" 
+                                SelectedIndexChanged="Picker_SelectedIndexChanged"
+                                >
+                        </Picker>
+                </StackLayout>
+            </AbsoluteLayout>
         </Renders:GradientLayout>
     </ContentPage.Content>
 </ContentPage>

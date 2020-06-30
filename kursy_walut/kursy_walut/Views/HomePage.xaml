@@ -27,9 +27,8 @@
                        AbsoluteLayout.LayoutBounds="0.5,0.5,300,200"
                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
                 </AbsoluteLayout>
-                <AbsoluteLayout WidthRequest="300" HeightRequest="300">
+                <AbsoluteLayout WidthRequest="300" HeightRequest="600">
                     <BoxView WidthRequest="300"
-                         HeightRequest="300"
                          CornerRadius="20"
                          AbsoluteLayout.LayoutBounds="0.1,0.1,1,1"
                          BackgroundColor="Snow"
@@ -38,7 +37,7 @@
                     <ListView 
                         x:Name="listView" 
                         AbsoluteLayout.LayoutFlags="All" 
-                        AbsoluteLayout.LayoutBounds="0.1,0.1,0.9,0.9"
+                        AbsoluteLayout.LayoutBounds="0.4,0.2,0.9,0.8"
                         ItemSelected="HandleSelection"
                         IsPullToRefreshEnabled="True" Refreshing="RefreshList">
                     <ListView.ItemTemplate>
@@ -47,8 +46,8 @@
                                     <StackLayout 
                                         Orientation="Horizontal" 
                                         Spacing="15">
-                                        <Label Text="{Binding NazwaWaluty}"/>
-                                        <Label Text="{Binding KursWaluty}" HorizontalOptions="EndAndExpand"/>
+                                        <Label Text="{Binding CurrencyName}"/>
+                                        <Label Text="{Binding CurrencyRatio}" HorizontalOptions="EndAndExpand"/>
                                     </StackLayout>
                                     <ViewCell.ContextActions>
                                         <MenuItem Text="Delete"
