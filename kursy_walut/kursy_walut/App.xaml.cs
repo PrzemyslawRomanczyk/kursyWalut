@@ -8,6 +8,7 @@ namespace kursy_walut
     {
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjgwNjIyQDMxMzgyZTMxMmUzMExHbUNqYk9EU2FKanZCWFhPblRJMzc2QjhsZVBpSk1LSEJBTnZJUWdHTEU9");
             InitializeComponent();
 
             MainPage = new NavigationPage(new Views.HomePage());

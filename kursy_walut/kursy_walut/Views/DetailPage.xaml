@@ -5,24 +5,49 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:Renders="clr-namespace:kursy_walut.Renders"
-             x:Class="kursy_walut.Views.DetailPage"
-             xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms">
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             x:Class="kursy_walut.Views.DetailPage">
     <ContentPage.Content>
         <Renders:GradientLayout
             ColorsList="#a7fea6,#c3eefc,#5eaef1"
             Mode="ToBottomRight">
-            <AbsoluteLayout HeightRequest="100">
+            <AbsoluteLayout WidthRequest="300" HeightRequest="600">
                 <BoxView WidthRequest="300"
-                         HeightRequest="150"
                          CornerRadius="20"
                          AbsoluteLayout.LayoutBounds="0.1,0.1,1,1"
                          BackgroundColor="Snow"
                          AbsoluteLayout.LayoutFlags="All">
                 </BoxView>
-                <oxy:PlotView
-                    AbsoluteLayout.LayoutFlags="All"
-                    AbsoluteLayout.LayoutBounds="0.15,0.15,0.7,0.7">
-                </oxy:PlotView>
+                <chart:SfChart>
+                    <chart:SfChart.PrimaryAxis>
+                        <chart:CategoryAxis>
+                            <chart:CategoryAxis.Title>
+
+                                <chart:ChartAxisTitle Text="Date"></chart:ChartAxisTitle>
+
+                            </chart:CategoryAxis.Title>
+                        </chart:CategoryAxis>
+                    </chart:SfChart.PrimaryAxis>
+                    <chart:SfChart.SecondaryAxis>
+
+                        <chart:NumericalAxis>
+                            <chart:NumericalAxis.Title>
+
+                                <chart:ChartAxisTitle Text="Change ratio"></chart:ChartAxisTitle>
+
+                            </chart:NumericalAxis.Title>
+                        </chart:NumericalAxis>
+
+                    </chart:SfChart.SecondaryAxis>
+                    <chart:LineSeries ItemsSource="{Binding Data}" XBindingPath="Date" YBindingPath="Ratio">
+
+                    </chart:LineSeries>
+                    <chart:SfChart.Title>
+
+                        <chart:ChartTitle Text="Last 10 Days Ratio"/>
+
+                    </chart:SfChart.Title>
+                </chart:SfChart>
             </AbsoluteLayout>
         </Renders:GradientLayout>
     </ContentPage.Content>
