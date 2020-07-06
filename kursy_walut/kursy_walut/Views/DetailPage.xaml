@@ -5,16 +5,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:Renders="clr-namespace:kursy_walut.Renders"
-             x:Class="kursy_walut.Views.DetailPage">
+             x:Class="kursy_walut.Views.DetailPage"
+             xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms">
     <ContentPage.Content>
         <Renders:GradientLayout
             ColorsList="#a7fea6,#c3eefc,#5eaef1"
             Mode="ToBottomRight">
-            <StackLayout>
-                <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            </StackLayout>
+            <AbsoluteLayout HeightRequest="100">
+                <BoxView WidthRequest="300"
+                         HeightRequest="150"
+                         CornerRadius="20"
+                         AbsoluteLayout.LayoutBounds="0.1,0.1,1,1"
+                         BackgroundColor="Snow"
+                         AbsoluteLayout.LayoutFlags="All">
+                </BoxView>
+                <oxy:PlotView
+                    AbsoluteLayout.LayoutFlags="All"
+                    AbsoluteLayout.LayoutBounds="0.15,0.15,0.7,0.7">
+                </oxy:PlotView>
+            </AbsoluteLayout>
         </Renders:GradientLayout>
     </ContentPage.Content>
 </ContentPage>

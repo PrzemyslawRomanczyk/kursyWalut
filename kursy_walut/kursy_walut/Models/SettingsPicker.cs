@@ -42,7 +42,8 @@ namespace kursy_walut.Models
                 new SettingsPicker{Id = 26, CurrencyOptionName="GBP"},
                 new SettingsPicker{Id = 27, CurrencyOptionName="KRW"},
                 new SettingsPicker{Id = 28, CurrencyOptionName="MYR"},
-                new SettingsPicker{Id = 28, CurrencyOptionName="EUR"},
+                new SettingsPicker{Id = 29, CurrencyOptionName="EUR"},
+                new SettingsPicker{Id = 30, CurrencyOptionName=""},
             };
         }
     }

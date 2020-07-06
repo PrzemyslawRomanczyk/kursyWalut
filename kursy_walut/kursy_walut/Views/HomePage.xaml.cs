@@ -83,8 +83,8 @@ namespace kursy_walut.Views
 
         async private void HandleSelection(object sender, SelectedItemChangedEventArgs e)
         {
-            var Kurs = e.SelectedItem as CurrencyC;
-            await Navigation.PushAsync(new Views.DetailPage());
+            var SelectedCurrencyObj = e.SelectedItem as CurrencyC;
+            await Navigation.PushAsync(new Views.DetailPage(SelectedCurrencyObj, _Connection, _client));
         }
 
         async private  void RefreshList(object sender, EventArgs e)

@@ -6,7 +6,7 @@ using System.Text;
 namespace kursy_walut.Models
 {
     [Table("CurrencyCurrentRatio")]
-    class CurrencyC
+    public class CurrencyC
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
