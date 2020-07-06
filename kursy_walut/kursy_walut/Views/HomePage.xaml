@@ -35,11 +35,15 @@
                          AbsoluteLayout.LayoutFlags="All">
                     </BoxView>
                     <ListView 
-                        x:Name="listView" 
+                        x:Name="MyListView"
                         AbsoluteLayout.LayoutFlags="All" 
                         AbsoluteLayout.LayoutBounds="0.4,0.2,0.9,0.8"
                         ItemSelected="HandleSelection"
-                        IsPullToRefreshEnabled="True" Refreshing="RefreshList">
+                        IsPullToRefreshEnabled="True"
+                        RefreshCommand="{Binding RefreshCommand}"
+                        IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                        ItemsSource="{Binding CurrencyList}"
+                        SelectedItem="{Binding SelectedCurrency, Mode=TwoWay}">
                     <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -51,7 +55,7 @@
                                     </StackLayout>
                                     <ViewCell.ContextActions>
                                         <MenuItem Text="Delete"
-                                                  Clicked="DeleteElement"
+                                                  Command="{Binding Path=BindingContext.DeleteElementCommand, Source={x:Reference Name=MyListView}}"
                                                   IsDestructive="true"
                                                   CommandParameter="{Binding .}">
                                         </MenuItem>

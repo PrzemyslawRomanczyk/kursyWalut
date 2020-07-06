@@ -25,9 +25,12 @@
                         <Label
                             HorizontalOptions="Center">
                                 Add new currency to list</Label>
-                        <Picker x:Name="CurrencyPicker"
+                        <Picker 
                                 Title="Choose Currency Acronym" 
                                 SelectedIndexChanged="Picker_SelectedIndexChanged"
+                                ItemsSource="{Binding SettingsPickersView, Mode=TwoWay}"
+                                SelectedIndex="{Binding SelectedIndex}"
+                                SelectedItem="{Binding SelectedItem}"
                                 >
                         </Picker>
                 </StackLayout>
