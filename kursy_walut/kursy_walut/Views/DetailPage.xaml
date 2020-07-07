@@ -11,14 +11,16 @@
         <Renders:GradientLayout
             ColorsList="#a7fea6,#c3eefc,#5eaef1"
             Mode="ToBottomRight">
-            <AbsoluteLayout WidthRequest="300" HeightRequest="600">
+            <AbsoluteLayout Margin="10,50,10,10" WidthRequest="300" HeightRequest="600">
                 <BoxView WidthRequest="300"
                          CornerRadius="20"
                          AbsoluteLayout.LayoutBounds="0.1,0.1,1,1"
                          BackgroundColor="Snow"
                          AbsoluteLayout.LayoutFlags="All">
                 </BoxView>
-                <chart:SfChart>
+                <chart:SfChart
+                    AbsoluteLayout.LayoutFlags="All"
+                    AbsoluteLayout.LayoutBounds="0.15,0.15,0.9,0.9">
                     <chart:SfChart.PrimaryAxis>
                         <chart:CategoryAxis>
                             <chart:CategoryAxis.Title>
@@ -39,12 +41,15 @@
                         </chart:NumericalAxis>
 
                     </chart:SfChart.SecondaryAxis>
-                    <chart:LineSeries ItemsSource="{Binding Data}" XBindingPath="Date" YBindingPath="Ratio">
+                    <chart:LineSeries ItemsSource="{Binding Data}" XBindingPath="Date" YBindingPath="Ratio" EnableTooltip="True">
 
                     </chart:LineSeries>
+                    <chart:SfChart.ChartBehaviors>
+                        <chart:ChartTooltipBehavior BackgroundColor="GreenYellow" TextColor="Black" Duration="10"/> 
+                    </chart:SfChart.ChartBehaviors>
                     <chart:SfChart.Title>
 
-                        <chart:ChartTitle Text="Last 10 Days Ratio"/>
+                        <chart:ChartTitle Text="Last 20 Days Ratio"/>
 
                     </chart:SfChart.Title>
                 </chart:SfChart>
